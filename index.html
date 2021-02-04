@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Sorteio Eletrônico - Instituto Federal de Educaçãoo, Ciência e Tecnologia do Espírito Santo</title>
+        <script src="scripts/jquery.js"></script>
+		<script src="scripts/seedrandom.js"></script>
+		<script src="scripts/main.js"></script>
+		<link rel="stylesheet" href="styles/index.css">
+    </head>
+
+    <body>
+
+        <header>
+            <div class="container">
+                <div class="logo">
+                    <img src="images/ifes_montanha_simplificada_cor_super_horizontal-01.png" />
+                </div>
+                
+                <div class="title">
+                    <h1>Sorteio automatizado de pontos para prova de desempenho didático</h1>
+                </div>
+            </div>
+        </header>
+
+        <section id="etapa1">
+            <h2>Definição de parâmetros</h2>
+            <div>
+                <span>Edital:</span>
+                <input type="text" id="edital" name="edital" placeholder='Exemplo: Edital 01/2021 - Professor Substituto - Campus Montanha'>
+            </div>
+
+            <div>
+                <span>Disciplina:</span>
+                <input type="text" id="discplina" name="discplina" placeholder='Exemplo: Inglês'>
+            </div>
+
+            <div>
+                <span>Ponto:</span>
+                
+                <input type="text" name="ponto" id="pontoInput" placeholder="Exemplo: Matrizes e Determinantes"><button onclick="addPonto()">Incluir Ponto</button>
+                <h3>Pontos incluídos:</h3>
+                <ol id="pontos">
+                    <!-- <li>Teste</li> -->
+                </ol>
+            </div>
+
+            <button onclick="clearAllPontos()">Excluir todos os pontos e reiniciar a inclusão</button>
+
+            <hr>
+
+            <div>
+                <span>Nome completo do candidato: </span>
+                <input id="nomeCandidato" type="text" name="candidato">
+            </div>
+
+            <div>
+                <span>Nome do servidor responsável pelo sorteio: </span>
+                <input id="nomeServidor" type="text" name="servidor">
+            </div>
+
+            <hr>
+
+            <h3>Área para auditoria</h3>
+            <input type="checkbox" name="sementeManual" id="sementeManual" onclick="onClickSementeManual()">
+            <span>Inserir semente manualmente</span>
+
+            <span style="margin-left: 50px;">Semente:</span>
+            <input type="text" id="semente" name="semente" size=20 maxlength=50 disabled >
+            <hr>
+            <button onclick="gereEImprimaResultado()">REALIZAR O SORTEIO</button>
+
+        </section>
+
+        <section id="resultado">
+            <div class="container">
+
+                <h2>Resultado do Sorteio</h2>
+                <div>
+                    <span class="bold">Candidato: </span><span id=resultado-Candidato></span>
+                </div>
+
+
+                <div>
+                    <span class="bold">Servidor responsável pelo sorteio: </span><span id=resultado-Servidor></span>
+                </div>
+
+                <div>
+                    <span class="bold">Data e hora do sorteio: </span><span id=resultado-Datahora></span>
+                </div>
+                <hr>
+                <div>
+                    <span class="bold">Temas disponíveis: </span>
+                    <ol id="temasDisponiveis">
+                    </ol>
+                </div>
+
+                <div class="sorteado">
+                    <span>Tema Sorteado: </span><span id=resultado-TemaSorteado></span>
+                </div>
+
+                <div>
+                    <h3>Informações técnicas para auditoria:</h3>
+                    <div id="informacoesTecnicas"></div>
+                </div>
+
+            </div>
+
+        </section>
+    </body>
+</html>

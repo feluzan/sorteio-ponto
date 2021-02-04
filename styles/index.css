@@ -1,0 +1,45 @@
+html {
+  font-family: Calibri; }
+
+body {
+  margin: 0px; }
+
+.container-default, header .container, #etapa1, #resultado .container {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: #ffffff; }
+
+header .logo img {
+  width: 100%; }
+header .title {
+  max-width: 80%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto; }
+
+#etapa1 {
+  background-color: #ffffff; }
+  #etapa1 > div {
+    margin-bottom: 15px; }
+  #etapa1 input[name="edital"] {
+    width: 80%; }
+  #etapa1 input[name="ponto"] {
+    width: 80%; }
+  #etapa1 input[name="candidato"],
+  #etapa1 input[name="servidor"] {
+    width: 60%; }
+  #etapa1 #pontos {
+    font-size: 18px; }
+
+#resultado {
+  display: none; }
+  #resultado .bold {
+    font-weight: bold; }
+  #resultado .sorteado {
+    text-align: center;
+    font-size: 24px; }
+    #resultado .sorteado #resultado-TemaSorteado {
+      font-weight: bold; }
