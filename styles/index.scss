@@ -78,7 +78,26 @@ header{
             font-weight: bold;
         }
     }
+    h1{
+        text-align: center;
+    }
+    .sorteado{
+        background-color: #AAA;
+    }
     
     // display: none;
+}
+
+#options{
+    display: none;
+    .container{
+        @extend .container-default;
+    }
+    margin-top: 50px;
+    text-align: center;
+    button{
+        padding: 10px;
+        margin-left: 50px;
+    }
 }
 

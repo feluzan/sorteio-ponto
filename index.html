@@ -6,6 +6,7 @@
 
         <title>Sorteio Eletrônico - Instituto Federal de Educaçãoo, Ciência e Tecnologia do Espírito Santo</title>
         <script src="scripts/jquery.js"></script>
+        <script src="scripts/jspdf.min.js"></script>
 		<script src="scripts/seedrandom.js"></script>
 		<script src="scripts/main.js"></script>
 		<link rel="stylesheet" href="styles/index.css">
@@ -33,8 +34,8 @@
             </div>
 
             <div>
-                <span>Disciplina:</span>
-                <input type="text" id="discplina" name="discplina" placeholder='Exemplo: Inglês'>
+                <span>Perfil:</span>
+                <input type="text" id="perfil" name="perfil" placeholder='Exemplo: Inglês'>
             </div>
 
             <div>
@@ -76,30 +77,42 @@
 
         <section id="resultado">
             <div class="container">
+                <h1>Resultado de Sorteio de Prova de Desempenho Didático</h1>
+                <!-- -->
+                <h2>Informações do Edital</h2>
+                <div>
+                    <span class="bold">Edital: </span><span id=resultado-Edital></span> 
+                </div>
+                <div>
+                    <span class="bold">Perfil: </span><span id=resultado-Perfil></span> 
+                </div>
+                <hr>
 
-                <h2>Resultado do Sorteio</h2>
+                <!-- -->
+                <h2>Informações do Sorteio</h2>
                 <div>
                     <span class="bold">Candidato: </span><span id=resultado-Candidato></span>
                 </div>
-
-
                 <div>
                     <span class="bold">Servidor responsável pelo sorteio: </span><span id=resultado-Servidor></span>
                 </div>
-
                 <div>
-                    <span class="bold">Data e hora do sorteio: </span><span id=resultado-Datahora></span>
+                    <span class="bold">Data e hora do sorteio: </span><span id=resultado-Datahora></span><span>h</span>
                 </div>
-                <hr>
                 <div>
                     <span class="bold">Temas disponíveis: </span>
                     <ol id="temasDisponiveis">
                     </ol>
                 </div>
+                <hr>
 
+                <!-- -->
                 <div class="sorteado">
                     <span>Tema Sorteado: </span><span id=resultado-TemaSorteado></span>
                 </div>
+                <hr>
+
+                <!-- -->
 
                 <div>
                     <h3>Informações técnicas para auditoria:</h3>
@@ -109,5 +122,18 @@
             </div>
 
         </section>
+        <section id="options">
+            <div class="container">
+                <div>
+                    <button onclick="doAgain()">Repetir Sorteio com as mesmas informações</button>
+                    <button onclick="generatePDF()">Baixar PDF</button>
+                </div>
+                <div>
+                    
+                </div>
+            </div>
+            
+        </section>
+        <div id="elementH"></div>
     </body>
 </html>

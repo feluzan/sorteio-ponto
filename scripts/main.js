@@ -1,6 +1,9 @@
 function gereEImprimaResultado() {
-    var nomeCandidato = $("#nomeCandidato").val();
-    var nomeServidor = $("#nomeServidor").val();
+	
+	// var edital = $("#edital").val();
+	// var perfil = $("#perfil").val();
+ //    var nomeCandidato = $("#nomeCandidato").val();
+ //    var nomeServidor = $("#nomeServidor").val();
 
     var quantidadePontos = pontos.length;
     var semente;
@@ -11,7 +14,13 @@ function gereEImprimaResultado() {
 		semente = new Date().getTime();
 	}
 	var embaralhada = gereListaEmbaralhada(quantidadePontos, semente);
-	imprimaResultado(nomeCandidato, nomeServidor, semente, embaralhada, );
+	var dados = {
+		"edital": $("#edital").val(),
+		"perfil": $("#perfil").val(),
+	    "nomeCandidato": $("#nomeCandidato").val(),
+	    "nomeServidor": $("#nomeServidor").val(),
+	}
+	imprimaResultado(dados, semente, embaralhada, );
 }
 
 function gereListaEmbaralhada(inscritos, semente){
@@ -35,7 +44,7 @@ function gereListaEmbaralhada(inscritos, semente){
 	return resultado;
 }
 
-function imprimaResultado(nomeCandidato, nomeServidor, semente, embaralhada) {
+function imprimaResultado(dados, semente, embaralhada) {
     // var conteudo = "";
     
     /**
@@ -44,17 +53,23 @@ function imprimaResultado(nomeCandidato, nomeServidor, semente, embaralhada) {
      */
     $("#etapa1").hide();
     $("#resultado").show();
-
+    $("#options").show();
     //Inclui nome do candidato e do responsável pelo sorteio
-    $("#resultado-Candidato").text(nomeCandidato);
-    $("#resultado-Servidor").text(nomeServidor);
+
+    $("#resultado-Edital").text(dados["edital"]);
+    $("#resultado-Perfil").text(dados["perfil"])
+    $("#resultado-Candidato").text(dados["nomeCandidato"]);
+    $("#resultado-Servidor").text(dados["nomeServidor"]);
 
     
     //Inclui data e hora do sorteio
     var now = new Date($.now());
+    // now.format("dd/mm/yyy | hh:mm tt")
+    // $("#resultado-Datahora").text(now);
     $("#resultado-Datahora").text(now.getDay() + "/" + (now.getMonth()+1) + "/" + now.getFullYear() + "   |   " + now.getHours() + ":" + now.getMinutes());
 
     //Inclui a lista de temas
+    $("#temasDisponiveis li").remove();
     pontos.forEach(element => {
         $("#temasDisponiveis").append("<li>" + element + "</li>");
     });
@@ -64,6 +79,7 @@ function imprimaResultado(nomeCandidato, nomeServidor, semente, embaralhada) {
 
 
     //Inclui Informações técnicas
+    $("#informacoesTecnicas div").remove();
     $("#informacoesTecnicas").append(gereVisualDeInformacoesTecnicas(semente));
 }
 
@@ -73,8 +89,8 @@ function gereVisualDeInformacoesTecnicas(semente) {
 	// conteudo += "<b>appName:</b> " + navigator.appName + "<br/>";
 	// conteudo += "<b>appVersion:</b> " + navigator.appVersion + "<br/>";
 	// conteudo += "<b>userAgent:</b> " + navigator.userAgent + "<br/>";
-	conteudo += "<b>Versão deste sistema:</b> 04/02/2021<br/>"
-    conteudo += "<b>Semente utilizada:</b> \"" + semente + "\"<br/>";
+	conteudo += "<div><b>Versão do sistema:</b> 30/06/2021</div>"
+    conteudo += "<div><b>Semente utilizada:</b> \"" + semente + "\"</div>";
     
 	return conteudo;
 }
@@ -84,9 +100,7 @@ var pontos=[];
 function addPonto(){
     $("#pontos").append("<li>" + $("#pontoInput").val() + "</li>");
     pontos.push($("#pontoInput").val());
-    $("#pontoInput").val('');
-   
-    
+    $("#pontoInput").val('');  
 }
 
 function clearAllPontos(){
@@ -103,3 +117,42 @@ function onClickSementeManual(){
     }
 }
 
+function generatePDF(){
+	var doc = new jsPDF();
+	var elementHTML = $('#resultado').html();
+	var specialElementHandlers = {
+	    '#elementH': function (element, renderer) {
+	        return true;
+	    }
+	};
+	// console.log(specialElementHandlers);
+	// console.log(elementHTML);
+	doc.fromHTML(elementHTML, 15, 15, {
+	    'width': 170,
+	    'elementHandlers': specialElementHandlers
+	});
+
+	//generate file name
+	// var fileName = "";
+	var fileName = "Ata de Sorteio - ";
+	fileName = fileName + $("#edital").val() + " - ";
+	fileName = fileName + $("#nomeCandidato").val().split(" ")[0];
+	// console.log(fileName);
+
+	// Save the PDF
+	doc.save(fileName + '.pdf');
+}
+
+function doAgain(){
+	if(confirm("Realizar o sorteio novamente? Isso fará com que um novo resultado aletório seja apresentado.")){
+		gereEImprimaResultado();
+		return;
+	}else{
+
+		return false;
+	}
+}
+
+function validateFields(){
+	
+}
